@@ -9,9 +9,12 @@ namespace OnlineBookStore
         {
         }
 
-        public DbSet<Book> Books { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderStatus> OrderStatuses { get; set; }
+        public DbSet<Book> Book { get; set; } = null!;
+        public DbSet<Order> Order { get; set; } = null!;
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
