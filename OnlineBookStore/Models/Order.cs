@@ -8,10 +8,6 @@ namespace OnlineBookStore.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(50, ErrorMessage = "Deve conter no máximo 50 caracteres"), MinLength(3, ErrorMessage = "Deve conter no mínimo 3 caracteres")]
-        public string BookId { get; set; } = null!;
-
-        [Required]
         public Book book { get; set; } = null!; //Foreign Key
 
         [Required]
