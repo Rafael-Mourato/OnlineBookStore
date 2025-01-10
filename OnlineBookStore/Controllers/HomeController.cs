@@ -18,6 +18,12 @@ namespace OnlineBookStore.Controllers
             return View();
         }
 
+        public IActionResult BookDetails(int id = default)
+        {
+            ViewData["Title"] = "Book Page";
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
