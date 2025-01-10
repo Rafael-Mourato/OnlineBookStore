@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineBookStore.Models;
-using OnlineBookStore.ViewModels;
 using System.Diagnostics;
 
 namespace OnlineBookStore.Controllers
@@ -16,10 +15,6 @@ namespace OnlineBookStore.Controllers
 
         public IActionResult Index()
         {
-            var viewModel = new IndexViewModel()
-            {
-                Books = new List<Book>()
-            };
             return View();
         }
 
