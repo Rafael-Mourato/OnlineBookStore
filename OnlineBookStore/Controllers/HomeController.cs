@@ -7,10 +7,12 @@ namespace OnlineBookStore.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly OnlineBookStoreDbContext _dbcontext;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(OnlineBookStoreDbContext dbContext, ILogger<HomeController> logger)
         {
+            _dbcontext = dbContext;
             _logger = logger;
         }
 
@@ -20,6 +22,12 @@ namespace OnlineBookStore.Controllers
             {
                 Books = new List<Book>()
             };
+            return View();
+        }
+
+        public IActionResult BookDetails(int id = default)
+        {
+            ViewData["Title"] = "Book Page";
             return View();
         }
 
