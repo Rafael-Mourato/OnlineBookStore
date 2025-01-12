@@ -1,0 +1,119 @@
+﻿@model OnlineBookStore.Models.Book
+
+<div class="card">
+    <div class="card-header bg-dark text-light">
+        @ViewData["Title"]
+    </div>
+    <div class="card-body">
+        <h5 class="card-title ">Detalhes do Livro</h5>
+        <div class="card-text">
+            @using (Html.BeginForm("Create", "Home", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="container">
+                    <div class="form-group mt-3">
+                        @Html.Label("Título")
+                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Title)
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.Label("ISBN")
+                        @Html.TextBoxFor(model => model.ISBN, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ISBN)
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.Label("Editora")
+                        @Html.TextBoxFor(model => model.Publisher, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Publisher)
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.Label("Autor")
+                        @Html.TextBoxFor(model => model.Author, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Author)
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.Label("Sinopse")
+                        @Html.TextAreaFor(model => model.Synopsis, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Synopsis)
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.Label("Foto da Capa")
+                        @Html.TextBoxFor(model => model.Image, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Image)
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.Label("Ano de Publicação")
+                        @Html.TextBoxFor(model => model.Year, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Year)
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.Label("Número de Páginas")
+                        @Html.TextBoxFor(model => model.Pages, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Pages)
+                    </div>
+
+                    @if (ViewBag.LanguageOptions != null)
+                    {
+                        <div class="form-group mt-3">
+                            @Html.Label("Idioma")
+                            @Html.DropDownListFor(model => model.Language, (IEnumerable<SelectListItem>)ViewBag.LanguageOptions, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Language)
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group mt-3">
+                            @Html.Label("Idioma")
+                            @Html.TextBoxFor(model => model.Language, new { @class = "form-control", @readonly = "readonly" })
+                            @Html.ValidationMessageFor(model => model.Language)
+                        </div>
+                    }
+
+                    @if (ViewBag.GenreOptions != null)
+                    {
+                        <div class="form-group mt-3">
+                            @Html.Label("Género")
+                            @Html.DropDownListFor(model => model.Genre, (IEnumerable<SelectListItem>)ViewBag.GenreOptions, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Genre)
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group mt-3">
+                            @Html.Label("Género")
+                            @Html.TextBoxFor(model => model.Genre, new { @class = "form-control", @readonly = "readonly" })
+                            @Html.ValidationMessageFor(model => model.Genre)
+                        </div>
+                    }
+
+
+                    <div class="form-group mt-3">
+                        @Html.Label("Preço")
+                        @Html.TextBoxFor(model => model.Price, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Price)
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.CheckBoxFor(model => model.IsAvailable, new { @class = "form-check-input" })
+                        @Html.Label("Disponibilidade ")
+                        @Html.ValidationMessageFor(model => model.IsAvailable)
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <input type="submit" value="Guardar" class="btn btn-primary" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

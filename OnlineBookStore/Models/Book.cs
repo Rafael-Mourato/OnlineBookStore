@@ -19,7 +19,7 @@ namespace OnlineBookStore.Models
         public string Synopsis { get; set; } = string.Empty;
 
         [MaxLength(13, ErrorMessage = "Deve conter exatamente 13 caracteres"), MinLength(13, ErrorMessage = "Deve conter exatamente 13 caracteres")]
-        public string ISBN { get; set; } = null!;
+        public int ISBN { get; set; }
 
         [DataType(DataType.ImageUrl)]
         public string Image { get; set; } = string.Empty;

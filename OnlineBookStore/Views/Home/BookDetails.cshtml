@@ -19,7 +19,7 @@
 
 <div class="book-details d-flex flex-row">
     <div class="book-image col-md-6 me-1 d-flex align-items-stretch" style="height: 400px; max-width: 620px">
-        <img src="" class="rounded img-fluid" alt="Imagem da capa do livro" style="object-fit: cover; height: 400px;" /> //the corresponding field is missing
+        <img src=@Model.Image class="rounded img-fluid" alt="Imagem da capa do livro" style="object-fit: cover; height: 400px;" />
     </div>
 
 
@@ -49,10 +49,10 @@
         </div>
 
         <div class="price-book align-self-end p-3 d-flex flex-row gap-3 align-items-center">
-            <p class="mb-0">@Html.DisplayFor(model => model.Price)€</p>
+            <p class="mb-0">@Html.DisplayFor(model => model.Price)</p>
 
             <div class="buy-button">
-                <a class="btn btn-primary" asp-action="RegisterOrder"><i class="bi bi-cart4"></i>Comprar</a>
+                <a class="btn btn-primary" asp-action="RegisterOrder" asp-route-id=@Model.Id><i class="bi bi-cart4"></i>Comprar</a>
             </div>
         </div>
     </div>
@@ -64,94 +64,7 @@
                 Sinopse
             </div>
             <div class="card-body">
-                @* <h5 class="card-title">Special title treatment</h5> *@
                 <p class="card-text">@Html.DisplayFor(model => model.Synopsis)</p>
-                @* <a href="#" class="btn btn-primary">Go somewhere</a> *@
             </div>
         </div>
 </div>
-
-
-
-@* <div> *@
-@*     <h4>Book</h4> *@
-@*     <hr /> *@
-@*     <dl class="row"> *@
-@*         <dt class = "col-sm-2"> *@
-@*             @Html.DisplayFor(model => model.Title) *@
-@*         </dt> *@
-@*         <dd class = "col-sm-10"> *@
-@*             @Html.DisplayFor(model => model.Title) *@
-@*         </dd> *@
-@*         <dt class = "col-sm-2"> *@
-@*             @Html.DisplayFor(model => model.Author) *@
-@*         </dt> *@
-@*         <dd class = "col-sm-10"> *@
-@*             @Html.DisplayFor(model => model.Author) *@
-@*         </dd> *@
-@*         <dt class = "col-sm-2"> *@
-@*             @Html.DisplayFor(model => model.Synopsis) *@
-@*         </dt> *@
-@*         <dd class = "col-sm-10"> *@
-@*             @Html.DisplayFor(model => model.Synopsis) *@
-@*         </dd> *@
-@*         <dt class = "col-sm-2"> *@
-@*             @Html.DisplayFor(model => model.ISBN) *@
-@*         </dt> *@
-@*         <dd class = "col-sm-10"> *@
-@*             @Html.DisplayFor(model => model.ISBN) *@
-@*         </dd> *@
-@*         <dt class = "col-sm-2"> *@
-@*             @Html.DisplayFor(model => model.Image) *@
-@*         </dt> *@
-@*         <dd class = "col-sm-10"> *@
-@*             @Html.DisplayFor(model => model.Image) *@
-@*         </dd> *@
-@*         <dt class = "col-sm-2"> *@
-@*             @Html.DisplayFor(model => model.Price) *@
-@*         </dt> *@
-@*         <dd class = "col-sm-10"> *@
-@*             @Html.DisplayFor(model => model.Price) *@
-@*         </dd> *@
-@*         <dt class = "col-sm-2"> *@
-@*             @Html.DisplayFor(model => model.Publisher) *@
-@*         </dt> *@
-@*         <dd class = "col-sm-10"> *@
-@*             @Html.DisplayFor(model => model.Publisher) *@
-@*         </dd> *@
-@*         <dt class = "col-sm-2"> *@
-@*             @Html.DisplayFor(model => model.Year) *@
-@*         </dt> *@
-@*         <dd class = "col-sm-10"> *@
-@*             @Html.DisplayFor(model => model.Year) *@
-@*         </dd> *@
-@*         <dt class = "col-sm-2"> *@
-@*             @Html.DisplayFor(model => model.Pages) *@
-@*         </dt> *@
-@*         <dd class = "col-sm-10"> *@
-@*             @Html.DisplayFor(model => model.Pages) *@
-@*         </dd> *@
-@*         <dt class = "col-sm-2"> *@
-@*             @Html.DisplayFor(model => model.Language) *@
-@*         </dt> *@
-@*         <dd class = "col-sm-10"> *@
-@*             @Html.DisplayFor(model => model.Language) *@
-@*         </dd> *@
-@*         <dt class = "col-sm-2"> *@
-@*             @Html.DisplayFor(model => model.Genre) *@
-@*         </dt> *@
-@*         <dd class = "col-sm-10"> *@
-@*             @Html.DisplayFor(model => model.Genre) *@
-@*         </dd> *@
-@*         <dt class = "col-sm-2"> *@
-@*             @Html.DisplayFor(model => model.IsAvailable) *@
-@*         </dt> *@
-@*         <dd class = "col-sm-10"> *@
-@*             @Html.DisplayFor(model => model.IsAvailable) *@
-@*         </dd> *@
-@*     </dl> *@
-@* </div> *@
-@* <div> *@
-@*     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> | *@
-@*     <a asp-action="Index">Back to List</a> *@
-@* </div> *@
