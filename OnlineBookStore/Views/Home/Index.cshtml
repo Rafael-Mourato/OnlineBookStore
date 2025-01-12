@@ -12,14 +12,14 @@
     <div class="container">
         <div class="row gap-3 g-4">
             <div class="card" style="width: 18rem;">
-                <img src="@book.Image" class="card-img-top" alt="Capa-Livro">
+                <img src=@book.Image class="card-img-top" alt="Capa-Livro">
                 <div class="card-body">
                     <h5 class="card-title">@book.Title</h5>
                     <p class="card-text mb-1">@book.Author</p>
                     <p class="card-text">@book.Publisher</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <p class="mb-0">@book.Price</p>
-                        <a href="#" class="btn btn-primary float-end">Ver Livro</a>
+                        <a class="btn btn-primary float-end" asp-action="BookDetails">Ver Livro</a>
                     </div>
                 </div>
             </div>

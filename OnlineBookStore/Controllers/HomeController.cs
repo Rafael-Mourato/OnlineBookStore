@@ -8,6 +8,7 @@ namespace OnlineBookStore.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private List<Book> books = new List<Book>();
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -16,11 +17,13 @@ namespace OnlineBookStore.Controllers
 
         public IActionResult Index()
         {
+            books = _dbcontext.Book.AsQueryable().ToList();
+
             var viewModel = new IndexViewModel()
             {
-                Books = new List<Book>()
+                Books = books
             };
-            return View();
+            return View(viewModel);
         }
 
         public IActionResult Privacy()
