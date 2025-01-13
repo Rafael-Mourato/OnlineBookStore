@@ -62,40 +62,17 @@
                         @Html.ValidationMessageFor(model => model.Pages)
                     </div>
 
-                    @if (ViewBag.LanguageOptions != null)
-                    {
-                        <div class="form-group mt-3">
-                            @Html.Label("Idioma")
-                            @Html.DropDownListFor(model => model.Language, (IEnumerable<SelectListItem>)ViewBag.LanguageOptions, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Language)
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="form-group mt-3">
-                            @Html.Label("Idioma")
-                            @Html.TextBoxFor(model => model.Language, new { @class = "form-control", @readonly = "readonly" })
-                            @Html.ValidationMessageFor(model => model.Language)
-                        </div>
-                    }
+                    <div class="form-group mt-3">
+                        @Html.Label("Idioma")
+                        @Html.DropDownListFor(model => model.Language, (IEnumerable<SelectListItem>)ViewBag.LanguageOptions, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Language)
+                    </div>
 
-                    @if (ViewBag.GenreOptions != null)
-                    {
-                        <div class="form-group mt-3">
-                            @Html.Label("Género")
-                            @Html.DropDownListFor(model => model.Genre, (IEnumerable<SelectListItem>)ViewBag.GenreOptions, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Genre)
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="form-group mt-3">
-                            @Html.Label("Género")
-                            @Html.TextBoxFor(model => model.Genre, new { @class = "form-control", @readonly = "readonly" })
-                            @Html.ValidationMessageFor(model => model.Genre)
-                        </div>
-                    }
-
+                    <div class="form-group mt-3">
+                        @Html.Label("Género")
+                        @Html.DropDownListFor(model => model.Genre, (IEnumerable<SelectListItem>)ViewBag.GenreOptions, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Genre)
+                    </div>
 
                     <div class="form-group mt-3">
                         @Html.Label("Preço")

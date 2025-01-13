@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineBookStore;
 
@@ -11,9 +12,11 @@ using OnlineBookStore;
 namespace OnlineBookStore.Migrations
 {
     [DbContext(typeof(OnlineBookStoreDbContext))]
-    partial class OnlineBookStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250113144419_Update4")]
+    partial class Update4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -206,10 +209,9 @@ namespace OnlineBookStore.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("ISBN")
-                        .IsRequired()
+                    b.Property<int>("ISBN")
                         .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
+                        .HasColumnType("int");
 
                     b.Property<string>("Image")
                         .IsRequired()
@@ -244,6 +246,7 @@ namespace OnlineBookStore.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("Year")
+                        .HasMaxLength(4)
                         .HasColumnType("int");
 
                     b.HasKey("Id");

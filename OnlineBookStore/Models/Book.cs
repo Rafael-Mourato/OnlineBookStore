@@ -19,7 +19,7 @@ namespace OnlineBookStore.Models
         public string Synopsis { get; set; } = string.Empty;
 
         [MaxLength(13, ErrorMessage = "Deve conter exatamente 13 caracteres"), MinLength(13, ErrorMessage = "Deve conter exatamente 13 caracteres")]
-        public int ISBN { get; set; }
+        public string ISBN { get; set; } = null!;
 
         [DataType(DataType.ImageUrl)]
         public string Image { get; set; } = string.Empty;
@@ -33,7 +33,7 @@ namespace OnlineBookStore.Models
         public string Publisher { get; set; } = string.Empty;
 
         [Required]
-        [MaxLength(4, ErrorMessage = "Introduza um ano válido"), MinLength(4, ErrorMessage = "Introduza um ano válido")]
+        [Range(1000, 9999, ErrorMessage = "Introduza um ano válido")]
         public int Year { get; set; }
 
         public int Pages { get; set; }

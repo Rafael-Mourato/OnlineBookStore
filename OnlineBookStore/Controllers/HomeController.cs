@@ -56,28 +56,22 @@ namespace OnlineBookStore.Controllers
 
 
         [HttpPost]
-        public IActionResult Create(Book model)
+        public IActionResult Create(Book book)
         {
             if (ModelState.IsValid)
             {
-                var book = new Book()
-                {
-                    Title = model.Title,
-                    ISBN = model.ISBN,
-                    Publisher = model.Publisher,
-                    Author = model.Author,
-                    Synopsis = model.Synopsis,
-                    Image = model.Image,
-                    Year = model.Year,
-                    Pages = model.Pages,
-                    Language = model.Language,
-                    Genre = model.Genre,
-                    Price = model.Price,
-                    IsAvailable = model.IsAvailable
-                };
+                books.Add(book);
+                _dbContext.Book.Add(book);
+                _dbContext.SaveChanges();
+
+                return RedirectToAction(nameof(Index));
             }
 
-            return View("CreateEdit");
+            
+
+            PopulateDropdowns();
+
+            return View("CreateEdit", book);
         }
 
         public IActionResult Edit(int id = default)
@@ -118,11 +112,20 @@ namespace OnlineBookStore.Controllers
                     existBook.IsAvailable = book.IsAvailable;
                 }
 
-                var result = _dbContext.Book.Update(existBook);
-                _dbContext.SaveChanges();
+                if (existBook != null)
+                {
+                    var result = _dbContext.Book.Update(existBook);
+                    _dbContext.SaveChanges();
+                }
+                else
+                {
+                    return NotFound();
+                }
 
                 return RedirectToAction(nameof(Index)); //CHANGE!!!!
             }
+
+            PopulateDropdowns();
 
             return View("CreateEdit");
         }
