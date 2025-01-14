@@ -23,7 +23,7 @@ namespace OnlineBookStore.Controllers
 
         public IActionResult Index()
         {
-            books = _dbContext.Book.AsQueryable().ToList();
+            books = _dbContext.Book.AsQueryable().Where(b => b.IsAvailable == true).ToList();
 
             var viewModel = new IndexViewModel()
             {
