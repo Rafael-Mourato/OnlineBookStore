@@ -1,0 +1,49 @@
+﻿@model OnlineBookStore.ViewModels.IndexViewModel
+
+@{
+    ViewData["Title"] = "Gestão";
+}
+
+<div class="container mt-5">
+    <h1 class="mb-4">Lista de Livros</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Capa</th>
+                <th>Título</th>
+                <th>ISBN</th>
+                <th>Autor</th>
+                <th>Preço</th>
+                <th>Disponibilidade</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model?.Books != null)
+            {
+                @foreach (var book in Model.Books)
+                {
+                <tr>
+                    <td>@book.Image</td>
+                    <td>@book.Title</td>
+                    <td>@book.ISBN</td>
+                    <td>@book.Author</td>
+                    <td>@book.Price</td>
+                    <td>@book.IsAvailable</td>
+                    <td>
+                        <a class="btn btn-outline-dark" asp-action="Edit" asp-route-id="@book.Id">Editar</a> |
+                        <a class="btn btn-outline-dark" asp-action="Delete" asp-route-id="@book.Id">Eliminar</a>
+                    </td>
+                </tr>
+                }
+            }
+            else{
+                <tr>
+                    <td colspan="7" class="text-center"><h5><i class="bi bi-exclamation-triangle-fill"></i> Não existem livros!!!</h5></td>
+                </tr>
+                
+            }
+            
+        </tbody>
+    </table>
+</div>

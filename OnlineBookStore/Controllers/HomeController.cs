@@ -130,6 +130,26 @@ namespace OnlineBookStore.Controllers
             return View("CreateEdit");
         }
 
+        public IActionResult Delete(int id = default)
+        {
+            var book = _dbContext.Book.FirstOrDefault(s => s.Id == id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+            return View("BackOffice");
+        }
+
+        public IActionResult BackOffice()
+        {
+            books = _dbContext.Book.AsQueryable().ToList();
+            var viewModel = new IndexViewModel()
+            {
+                Books = books
+            };
+            return View("BackOffice");
+        }
+
         public IActionResult Privacy()
         {
             return View();
