@@ -147,7 +147,7 @@ namespace OnlineBookStore.Controllers
             {
                 Books = books
             };
-            return View("BackOffice");
+            return View(viewModel);
         }
 
         public IActionResult Privacy()
