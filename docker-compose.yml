@@ -1,0 +1,37 @@
+services:
+  onlinebookstore:
+    image: rafamour/onlinebookstore:1.0
+    build:
+      context: .
+      dockerfile: OnlineBookStore/Dockerfile
+    environment:
+        - ConnectionStrings__DefaultConnection=Server=onlinebookstore_db;Database=OnlineBookStore;User Id=sa;Password=OnlineBookStoreDB2025;Trust Server Certificate=True;
+    container_name: onlinebookstore_app
+    ports:
+      - "5000:80"
+    depends_on:
+      - onlinebookstore_db
+    networks:
+      - onlinebookstore
+
+  onlinebookstore_db:
+     image: mcr.microsoft.com/mssql/server:2022-latest
+     container_name: onlinebookstore_db
+     environment:
+        - SA_PASSWORD=OnlineBookStoreDB2025
+        - ACCEPT_EULA=Y
+        - MSSQL_PID=Developer
+     ports:
+        - 8002:1433
+     networks:
+       - onlinebookstore
+     volumes:
+       -  bookstoreVolume:/var/opt/mssql
+
+volumes:
+    bookstoreVolume:
+
+networks:
+    onlinebookstore:
+        driver: bridge    
+  

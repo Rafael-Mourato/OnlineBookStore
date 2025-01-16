@@ -361,5 +361,3 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/OnlineBookStore/appsettings.json
-/docker-compose.yml

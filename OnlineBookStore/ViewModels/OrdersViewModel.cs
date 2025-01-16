@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using OnlineBookStore.Models;
 
 namespace OnlineBookStore.ViewModels
 {
-    public class OrdersViewModel : Controller
+    public class OrdersViewModel
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public List<Order> Orders { get; set; }
     }
 }

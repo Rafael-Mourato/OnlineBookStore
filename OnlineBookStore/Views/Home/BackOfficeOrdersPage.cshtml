@@ -1,4 +1,4 @@
-﻿@model List<OnlineBookStore.Models.Order>
+﻿@model OnlineBookStore.ViewModels.OrdersViewModel
 
 <div class="container">
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -18,9 +18,8 @@
 </div>
 
 <div class="container mt-5 d-flex flex-column justify-content-between">
-    <a class="btn btn-outline-primary align-self-end mb-1" asp-action="Create"><i class="bi bi-plus-circle-fill"></i> Adicionar Livro</a>
     <table class="table table-striped text-center">
-        <caption>Lista de livros</caption>
+        <caption>Lista de encomendas</caption>
         <thead>
             <tr>
                 <th>Capa</th>
@@ -31,18 +30,18 @@
             </tr>
         </thead>
         <tbody class="align-middle">
-            @if (Model?.Books != null)
-            {
-                @foreach (var orders in Model)
-                {
-                    <tr>
-                        <td class="align-middle"><img src=@orders.Image alt="Capa do Livro" style="height: 65px" /></td>
-                        <td class="align-middle">@book.Title</td>
-                        <td class="align-middle">@book.ISBN</td>
-                        <td>@book.Author</td>
-                        <td>@book.Price €</td>
-                    </tr>
-                }
+            if (Model?.Orders != null)
+            { 
+                 @foreach (var order in Model.Orders) 
+                 { 
+                     <tr> 
+                         <td class="align-middle"><img src=@order.book.Image alt="Capa do Livro" style="height: 65px" /></td> 
+                         <td class="align-middle">@order.book.Title</td> 
+                         <td class="align-middle">@order.Username</td> 
+                         <td>@order.Address</td> 
+                         <td>@order.Status</td> 
+                     </tr> 
+                 } 
             }
             else
             {
