@@ -150,6 +150,12 @@ namespace OnlineBookStore.Controllers
             return View(viewModel);
         }
 
+        public IActionResult OrdersPage()
+        {
+            var orders = _dbContext.Order.AsQueryable().ToList();
+            return View(orders);
+        }
+
         public IActionResult Privacy()
         {
             return View();

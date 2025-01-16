@@ -1,8 +1,4 @@
-﻿@model OnlineBookStore.ViewModels.IndexViewModel
-
-@{
-    ViewData["Title"] = "Gestão da Livraria";
-}
+﻿@model List<OnlineBookStore.Models.Order>
 
 <div class="container">
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -29,47 +25,33 @@
             <tr>
                 <th>Capa</th>
                 <th>Título</th>
-                <th>ISBN</th>
-                <th>Autor</th>
-                <th>Preço</th>
-                <th>Disponibilidade</th>
-                <th>Ações</th>
+                <th>Nome do utilizador</th>
+                <th>Morada</th>
+                <th>Estado da encomenda</th>
             </tr>
         </thead>
         <tbody class="align-middle">
             @if (Model?.Books != null)
             {
-                @foreach (var book in Model.Books)
+                @foreach (var orders in Model)
                 {
-                <tr>
-                    <td class="align-middle"><img src=@book.Image alt="Capa do Livro" style="height: 65px"/></td>
-                    <td class="align-middle">@book.Title</td>
-                    <td class="align-middle">@book.ISBN</td>
-                    <td>@book.Author</td>
-                    <td>@book.Price €</td>
-                        <td class="align-middle">
-                            @if (book.IsAvailable)
-                            {
-                                <p class="mb-0"><i class="bi bi-circle-fill" style="color: green;"></i></p>
-                            }
-                            else
-                            {
-                                <p class="mb-0"><i class="bi bi-circle-fill" style="color: red"></i></p>
-                            }
-                        </td>
-                    <td>
-                        <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@book.Id">Editar</a> | <a class="btn btn-outline-primary" asp-action="Delete" asp-route-id="@book.Id">Eliminar</a>
-                        </td>
-                </tr>
+                    <tr>
+                        <td class="align-middle"><img src=@orders.Image alt="Capa do Livro" style="height: 65px" /></td>
+                        <td class="align-middle">@book.Title</td>
+                        <td class="align-middle">@book.ISBN</td>
+                        <td>@book.Author</td>
+                        <td>@book.Price €</td>
+                    </tr>
                 }
             }
-            else{
+            else
+            {
                 <tr>
                     <td colspan="7" class="text-center"><h5><i class="bi bi-exclamation-triangle-fill"></i> Não existem livros!!!</h5></td>
                 </tr>
-                
+
             }
-            
+
         </tbody>
     </table>
 </div>
