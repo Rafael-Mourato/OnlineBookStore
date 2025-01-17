@@ -1,10 +1,12 @@
 using Humanizer.Localisation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OnlineBookStore.Models;
 using OnlineBookStore.ViewModels;
 using System.Diagnostics;
+using System.Dynamic;
 using System.Security.Policy;
 
 namespace OnlineBookStore.Controllers
@@ -14,6 +16,7 @@ namespace OnlineBookStore.Controllers
         private readonly OnlineBookStoreDbContext _dbContext;
         private readonly ILogger<HomeController> _logger;
         private List<Book> books = new List<Book>();
+        private List<Order> orders = new List<Order>();
 
         public HomeController(OnlineBookStoreDbContext dbContext, ILogger<HomeController> logger)
         {
@@ -47,6 +50,7 @@ namespace OnlineBookStore.Controllers
         public IActionResult Create()
         {
             ViewData["Title"] = "Adicionar Livro";
+            ViewData["Type"] = "Create";
             ViewData["Button"] = "Guardar";
 
             PopulateDropdowns();
@@ -60,6 +64,7 @@ namespace OnlineBookStore.Controllers
         {
             if (ModelState.IsValid)
             {
+                book.Id = 0;
                 books.Add(book);
                 _dbContext.Book.Add(book);
                 _dbContext.SaveChanges();
@@ -77,6 +82,7 @@ namespace OnlineBookStore.Controllers
         public IActionResult Edit(int id = default)
         {
             ViewData["Title"] = "Editar Livro";
+            ViewData["Type"] = "Edit";
 
             var book = _dbContext.Book.FirstOrDefault(s => s.Id == id);
             if (book == null)
@@ -93,7 +99,7 @@ namespace OnlineBookStore.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Book book)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var existBook = _dbContext.Book.FirstOrDefault(s => s.Id == book.Id);
                 if (existBook != null)
@@ -110,11 +116,8 @@ namespace OnlineBookStore.Controllers
                     existBook.Genre = book.Genre;
                     existBook.Price = book.Price;
                     existBook.IsAvailable = book.IsAvailable;
-                }
 
-                if (existBook != null)
-                {
-                    var result = _dbContext.Book.Update(existBook);
+                    _dbContext.Book.Update(existBook);
                     _dbContext.SaveChanges();
                 }
                 else
@@ -122,12 +125,12 @@ namespace OnlineBookStore.Controllers
                     return NotFound();
                 }
 
-                return RedirectToAction(nameof(Index)); //CHANGE!!!!
+                return RedirectToAction(nameof(BackOffice));
             }
 
             PopulateDropdowns();
 
-            return View("CreateEdit");
+            return View("CreateEdit", book);
         }
 
         public IActionResult Delete(int id = default)
@@ -137,9 +140,47 @@ namespace OnlineBookStore.Controllers
             {
                 return NotFound();
             }
-            return View("BackOffice");
+
+            books.Remove(book);
+            _dbContext.Book.Remove(book);
+            _dbContext.SaveChanges();
+
+            return RedirectToAction(nameof(BackOffice));
         }
 
+
+        public IActionResult RegisterOrder(int id = default)
+        {
+            books = _dbContext.Book.AsQueryable().Where(b => b.Id == id).ToList();
+            if (books == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new IndexViewModel()
+            {
+                Books = books
+            };
+
+            return View("OrderRegister");
+        }
+
+        [HttpPost]
+        public IActionResult RegisterOrder(Order order)
+        {
+            if (ModelState.IsValid)
+            {
+                orders.Add(order);
+                _dbContext.Order.Add(order);
+                _dbContext.SaveChanges();
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View("OrderRegister");
+        }
+
+        [Authorize]
         public IActionResult BackOffice()
         {
             books = _dbContext.Book.AsQueryable().ToList();
