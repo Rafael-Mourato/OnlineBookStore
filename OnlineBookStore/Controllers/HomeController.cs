@@ -194,16 +194,16 @@ namespace OnlineBookStore.Controllers
         public IActionResult BackOfficeOrdersPage()
         {
             orders = _dbContext.Order.AsQueryable().ToList();
-            var viewModel = new OrdersViewModel()
+            var viewModel = new IndexViewModel()
             {
                 Orders = orders
             };
             return View(viewModel);
         }
 
-        public IActionResult Privacy()
+        public IActionResult About()
         {
-            return View();
+            return View("About");
         }
 
         private void PopulateDropdowns()
