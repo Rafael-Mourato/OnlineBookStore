@@ -6,10 +6,10 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-center">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-dark active" asp-area="" asp-controller="Home" asp-action="Index">Livros</a>
+                        <a class="nav-link text-dark active" asp-area="" asp-controller="Home" asp-action="BackOffice">Livros</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="OrdersPage">Encomendas</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="BackOfficeOrdersPage">Encomendas</a>
                     </li>
                 </ul>
             </div>
@@ -30,7 +30,7 @@
             </tr>
         </thead>
         <tbody class="align-middle">
-            if (Model?.Orders != null)
+            @if (Model?.Orders != null && Model.Orders.Any())
             { 
                  @foreach (var order in Model.Orders) 
                  { 

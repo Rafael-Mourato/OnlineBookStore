@@ -14,6 +14,7 @@ namespace OnlineBookStore.Controllers
         private readonly OnlineBookStoreDbContext _dbContext;
         private readonly ILogger<HomeController> _logger;
         private List<Book> books = new List<Book>();
+        private List<Order> orders = new List<Order>();
 
         public HomeController(OnlineBookStoreDbContext dbContext, ILogger<HomeController> logger)
         {
@@ -137,7 +138,11 @@ namespace OnlineBookStore.Controllers
             {
                 return NotFound();
             }
-            return View("BackOffice");
+
+            _dbContext.Book.Remove(book);
+            _dbContext.SaveChanges();
+
+            return RedirectToAction(nameof(BackOffice));
         }
 
         public IActionResult BackOffice()
@@ -150,10 +155,14 @@ namespace OnlineBookStore.Controllers
             return View(viewModel);
         }
 
-        public IActionResult OrdersPage()
+        public IActionResult BackOfficeOrdersPage()
         {
-            var orders = _dbContext.Order.AsQueryable().ToList();
-            return View(orders);
+            orders = _dbContext.Order.AsQueryable().ToList();
+            var viewModel = new OrdersViewModel()
+            {
+                Orders = orders
+            };
+            return View(viewModel);
         }
 
         public IActionResult Privacy()
@@ -165,6 +174,7 @@ namespace OnlineBookStore.Controllers
         {
             ViewBag.LanguageOptions = new List<SelectListItem>
             {
+                new SelectListItem { Value = "", Text = "-Selecione um idioma-" },
                 new SelectListItem { Value = "Português", Text = "Português" },
                 new SelectListItem { Value = "Inglês", Text = "Inglês" },
                 new SelectListItem { Value = "Espanhol", Text = "Espanhol" },
@@ -174,10 +184,12 @@ namespace OnlineBookStore.Controllers
 
             ViewBag.GenreOptions = new List<SelectListItem>
             {
+                new SelectListItem { Value = "", Text = "-Selecione um género-" },
                 new SelectListItem { Value = "Economia, Finanças e Contabilidade", Text = "Economia, Finanças e Contabilidade"},
                 new SelectListItem { Value = "Ficção", Text = "Ficção" },
                 new SelectListItem { Value = "Romance", Text = "Romance" },
                 new SelectListItem { Value = "Fantasia", Text = "Fantasia" },
+                new SelectListItem { Value = "Infantil", Text = "Infantil" },
                 new SelectListItem { Value = "Mistério", Text = "Mistério" },
                 new SelectListItem { Value = "Biografia", Text = "Biografia" },
             };
