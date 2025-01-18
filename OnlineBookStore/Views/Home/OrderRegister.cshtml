@@ -1,0 +1,65 @@
+﻿@model OnlineBookStore.ViewModels.IndexViewModel
+
+@{
+    ViewBag.Title = "OrderRegister";
+}
+
+<div class="container">
+    <h2>Finalizar Encomenda!</h2>
+    <div class="order">
+        <div class="book-order">
+            <table class="table table-striped text-center">
+                <caption>Lista de livros</caption>
+                <thead>
+                    @* <tr>
+                        <th>Capa</th>
+                        <th>Título</th>
+                        <th>ISBN</th>
+                        <th>Autor</th>
+                        <th>Preço</th>
+                        <th>Disponibilidade</th>
+                        <th>Ações</th>
+                    </tr> *@
+                </thead>
+                <tbody class="align-middle">
+                    @foreach (var book in Model.Books)
+                    {
+                        <tr>
+                            <td class="align-middle"><img src=@book.Image alt="Capa do Livro" style="height: 65px" /></td>
+                            <td class="align-middle">@book.Title</td>
+                            <td class="align-middle">@book.ISBN</td>
+                            <td>@book.Author</td>
+                            <td>@book.Price €</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>Olá
+        </div>
+        <div class="forms">
+            @*@using (Html.BeginForm("Create", "Home", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.HiddenFor(model => model.Orders.Id)
+
+                <div class="container">
+                    <div class="form-group mt-3">
+                        @Html.Label("Nome")
+                        @Html.TextBoxFor(model => model.Item1.Username, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Item1.Username)
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.Label("Morada de Envio")
+                        @Html.TextBoxFor(model => model.Item1.Address, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Item1.Address)
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <input type="submit" value="Finalizar" class="btn btn-primary" />
+                    </div>
+                </div>
+            }*@
+        </div>
+    </div>
+</div>

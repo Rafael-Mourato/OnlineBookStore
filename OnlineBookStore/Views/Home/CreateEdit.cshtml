@@ -1,5 +1,9 @@
 ﻿@model OnlineBookStore.Models.Book
 
+@{
+    string type = ViewData["Type"].ToString();
+}
+
 <div class="card">
     <div class="card-header bg-dark text-light">
         @ViewData["Title"]
@@ -7,7 +11,7 @@
     <div class="card-body">
         <h5 class="card-title ">Detalhes do Livro</h5>
         <div class="card-text">
-            @using (Html.BeginForm("Create", "Home", FormMethod.Post))
+            @using (Html.BeginForm(type, "Home", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
 
