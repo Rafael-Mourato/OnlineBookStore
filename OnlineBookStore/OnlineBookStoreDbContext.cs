@@ -39,6 +39,7 @@ namespace OnlineBookStore
             modelBuilder.Entity<Order>(entity =>
             {
                 entity.Property(e => e.Price).HasColumnType("decimal(18,2)");
+                entity.HasOne(o => o.Book).WithMany().HasForeignKey(o => o.BookId);
             });
         }
     }

@@ -148,36 +148,42 @@ namespace OnlineBookStore.Controllers
             return RedirectToAction(nameof(BackOffice));
         }
 
-
-        public IActionResult RegisterOrder(int id = default)
+        public IActionResult OrderRegister(int id = default)
         {
-            books = _dbContext.Book.AsQueryable().Where(b => b.Id == id).ToList();
-            if (books == null)
+            var book = _dbContext.Book.FirstOrDefault(b => b.Id == id);
+            if (book == null)
             {
                 return NotFound();
             }
-
             var viewModel = new IndexViewModel()
             {
-                Books = books
+                Book = book,
+                Order = new Order { BookId = book.Id } // Inicializa o Order com o BookId
             };
-
-            return View("OrderRegister");
+            return View("OrderRegister", viewModel);
         }
 
         [HttpPost]
-        public IActionResult RegisterOrder(Order order)
+        public IActionResult OrderRegister(Order order)
         {
-            if (ModelState.IsValid)
+            var book = _dbContext.Book.FirstOrDefault(b => b.Id == order.BookId);
+            if (book == null)
             {
-                orders.Add(order);
-                _dbContext.Order.Add(order);
-                _dbContext.SaveChanges();
-
-                return RedirectToAction(nameof(Index));
+                ModelState.AddModelError("BookId", "Invalid book ID.");
+                var viewModel = new IndexViewModel
+                {
+                    Order = order,
+                    Book = null
+                };
+                return View("OrderRegister", viewModel);
             }
 
-            return View("OrderRegister");
+            order.Price = book.Price;
+
+            orders.Add(order);
+            _dbContext.Order.Add(order);
+            _dbContext.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
 
         [Authorize]
