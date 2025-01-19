@@ -19,6 +19,7 @@
                     <caption>Lista de livros</caption>
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>Capa</th>
                             <th>Título</th>
                             <th>ISBN</th>
@@ -34,6 +35,7 @@
                             @foreach (var book in Model.Books)
                             {
                                 <tr>
+                                    <td class="align-middle">@book.Id</td>
                                     <td class="align-middle"><img src=@book.Image class="object-fit-fill" alt="Capa do Livro" style="height: 65px" /></td>
                                     <td class="align-middle">@book.Title</td>
                                     <td class="align-middle">@book.ISBN</td>
@@ -73,6 +75,7 @@
                     <caption>Lista de encomendas</caption>
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>Capa</th>
                             <th>Título</th>
                             <th>Nome do utilizador</th>
@@ -86,6 +89,7 @@
                             @foreach (var order in Model.Orders)
                             {
                                 <tr>
+                                    <td class="align-middle">@order.Id</td>
                                     <td class="align-middle"><img src=@order.Book.Image alt="Capa do Livro" style="height: 65px" /></td>
                                     <td class="align-middle">@order.Book.Title</td>
                                     <td class="align-middle">@order.Username</td>
