@@ -1,24 +1,4 @@
-﻿// Seleciona o botão pelo ID
-const botaoTopo = document.getElementById('voltarAoTopo');
-
-// Função para mostrar ou esconder o botão com base no scroll
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 200) { // Se o scroll for maior que 200px
-        botaoTopo.style.display = 'block'; // Exibe o botão
-    } else {
-        botaoTopo.style.display = 'none'; // Esconde o botão
-    }
-});
-
-// Função para rolar suavemente ao topo quando o botão é clicado
-botaoTopo.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth' // Animação suave
-    });
-});
-
-document.addEventListener("DOMContentLoaded", () => {
+﻿document.addEventListener("DOMContentLoaded", () => {
     const html = document.documentElement; // Seleciona a tag <html>
     const themeToggle = document.getElementById("toggle-theme"); // ID correto do botão
 
@@ -44,3 +24,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
     console.log(`Tema inicial: ${savedTheme}`);
 });
+
+/*************************************************************************************/
+
+// Seleciona o botão pelo ID
+const botaoTopo = document.getElementById('voltarAoTopo');
+
+// Função para mostrar ou esconder o botão com base no scroll
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 200) { // Se o scroll for maior que 200px
+        botaoTopo.style.display = 'block'; // Exibe o botão
+    } else {
+        botaoTopo.style.display = 'none'; // Esconde o botão
+    }
+});
+
+// Função para rolar suavemente ao topo quando o botão é clicado
+botaoTopo.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Animação suave
+    });
+});
+
+/*************************************************************************************/
+
+const triggerTabList = document.querySelectorAll('#myTab button')
+triggerTabList.forEach(triggerEl => {
+    const tabTrigger = new bootstrap.Tab(triggerEl)
+
+    triggerEl.addEventListener('click', event => {
+        event.preventDefault()
+        tabTrigger.show()
+    })
+})
