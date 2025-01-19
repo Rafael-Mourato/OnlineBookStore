@@ -1,65 +1,50 @@
 ﻿@model OnlineBookStore.ViewModels.IndexViewModel
 
-@{
-    ViewBag.Title = "OrderRegister";
-}
-
 <div class="container">
     <h2>Finalizar Encomenda!</h2>
-    <div class="order">
+    <div class="order d-flex">
         <div class="book-order">
-            <table class="table table-striped text-center">
-                <caption>Lista de livros</caption>
-                <thead>
-                    @* <tr>
-                        <th>Capa</th>
-                        <th>Título</th>
-                        <th>ISBN</th>
-                        <th>Autor</th>
-                        <th>Preço</th>
-                        <th>Disponibilidade</th>
-                        <th>Ações</th>
-                    </tr> *@
-                </thead>
-                <tbody class="align-middle">
-                    @foreach (var book in Model.Books)
-                    {
-                        <tr>
-                            <td class="align-middle"><img src=@book.Image alt="Capa do Livro" style="height: 65px" /></td>
-                            <td class="align-middle">@book.Title</td>
-                            <td class="align-middle">@book.ISBN</td>
-                            <td>@book.Author</td>
-                            <td>@book.Price €</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>Olá
+            <div class="book d-flex flex-column">
+                <h3>Livro Escolhido</h3>
+                <div class="book-info d-flex flex-row justify-content-between">
+                    <h4>@Model.Book.Title</h4>
+                    <p>@Model.Book.Author</p>
+                    <p>@Model.Book.Price €</p>
+                </div>
+            </div>
         </div>
-        <div class="forms">
-            @*@using (Html.BeginForm("Create", "Home", FormMethod.Post))
+
+        <div class="forms-order">
+            <h3>Informações de Envio:</h3>
+            @using (Html.BeginForm("OrderRegister", "Home", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
 
-                @Html.HiddenFor(model => model.Orders.Id)
+                @Html.HiddenFor(model => model.Order.Id)
+                @Html.HiddenFor(model => model.Order.book)
 
                 <div class="container">
                     <div class="form-group mt-3">
-                        @Html.Label("Nome")
-                        @Html.TextBoxFor(model => model.Item1.Username, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Item1.Username)
+                        @Html.Label("Username")
+                        @Html.TextBoxFor(model => model.Order.Username, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Order.Username)
                     </div>
 
                     <div class="form-group mt-3">
                         @Html.Label("Morada de Envio")
-                        @Html.TextBoxFor(model => model.Item1.Address, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Item1.Address)
+                        @Html.TextBoxFor(model => model.Order.Address, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Order.Address)
                     </div>
 
+                    @Html.HiddenFor(model => model.Order.Price)
+
+                    @Html.HiddenFor(model => model.Order.Status)
+
                     <div class="form-group mt-3">
-                        <input type="submit" value="Finalizar" class="btn btn-primary" />
+                        <input type="submit" value="Guardar" class="btn btn-outline-primary" />
                     </div>
                 </div>
-            }*@
+            }
         </div>
     </div>
 </div>

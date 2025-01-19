@@ -6,9 +6,10 @@ namespace OnlineBookStore.Models
     {
         [Key]
         public int Id { get; set; }
+        public int BookId { get; set; } // Chave estrangeira explícita
 
-        [Required]
-        public Book book { get; set; } = null!; //Foreign Key
+        // Propriedade de navegação
+        public Book Book { get; set; }
 
         [Required]
         [MaxLength(100, ErrorMessage = "Deve conter no máximo 100 caracteres"), MinLength(5, ErrorMessage = "Deve conter no mínimo 5 caracteres")]
@@ -19,7 +20,6 @@ namespace OnlineBookStore.Models
         public string Address { get; set; } = string.Empty;
 
         [Required]
-        [MaxLength(10, ErrorMessage = "Deve conter no máximo 100 caracteres"), MinLength(3, ErrorMessage = "Deve conter no mínimo 3 caracteres")]
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
 
