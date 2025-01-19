@@ -1,62 +1,69 @@
 ﻿@model OnlineBookStore.ViewModels.IndexViewModel
 
 <div class="container">
-    <h2>Finalizar Encomenda!</h2>
-    <div class="order d-flex">
+    <div class="order d-flex flex-row gap-5 justify-content-center">
         <div class="book-order">
-            <div class="book d-flex flex-column">
-                <h3>Livro Escolhido</h3>
-                @if (Model.Book != null)
-                {
-                    <div class="book-info d-flex flex-row justify-content-between">
-                        <h4>@Model.Book.Title</h4>
-                        <p>@Model.Book.Author</p>
-                        <p>@Model.Book.Price €</p>
-                    </div>
-                }
-                else
-                {
-                    <p>Book information is not available.</p>
-                }
-            </div>
+            <table class="table table-striped text-center">
+                <thead>
+                    <tr>
+                        <th colspan="2">Livro</th>
+                        <th>ISBN</th>
+                        <th>Autor</th>
+                        <th>Preço</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><img src=@Model.Book.Image alt="Capa do Livro" style="height: 65px"/></td>
+                        <td>@Model.Book.Title</td>
+                        <td>@Model.Book.ISBN</td>
+                        <td>@Model.Book.Author</td>
+                        <td>@Model.Book.Price €</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-        <div class="forms-order">
-            <h3>Informações de Envio:</h3>
-            @using (Html.BeginForm("OrderRegister", "Home", FormMethod.Post))
-            {
-                @Html.AntiForgeryToken()
-
-                @Html.HiddenFor(model => model.Order.Id)
-                @Html.HiddenFor(model => model.Order.BookId)
-
+        <div class="forms-order card">
+            <div class="card-header bg-dark text-light pt-3 ps-3 pe-3 text-center">Resumo Encomenda</div>
+            <div class="card-body">
                 <div class="container">
-                    <div class="form-group mt-3">
-                        @Html.Label("Username")
-                        @Html.TextBoxFor(model => model.Order.Username, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Order.Username)
-                    </div>
-
-                    <div class="form-group mt-3">
-                        @Html.Label("Morada de Envio")
-                        @Html.TextBoxFor(model => model.Order.Address, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Order.Address)
-                    </div>
-
-                    @Html.HiddenFor(model => model.Order.Price)
-
-                    @Html.HiddenFor(model => model.Order.Status)
-
-                    <div class="form-group mt-3">
-                        <form asp-action="OrderRegister" method="post">
-                            <input type="hidden" asp-for="Order.BookId" value="@Model.Book.Id" />
-                            <!-- Outros campos do formulário -->
-                            <button class ="btn btn-outline-primary" type="submit">Registrar Pedido</button>
-                        </form>
-                    </div>
-
+                    <div class="card-title">Preço Total @Model.Book.Price €</div>
+                    <hr>
+                    <p class="fs-6 fw-lighter text-center">Para que possamos entregar o seu livro <br /> indique-nos as suas informações de contacto!</p>
                 </div>
-            }
+                
+                @using (Html.BeginForm("OrderRegister", "Home", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.HiddenFor(model => model.Order.Id)
+                    @Html.HiddenFor(model => model.Order.BookId)
+
+                    <div class="container">
+                        <div class="form-group mt-3">
+                            @Html.Label("Username")
+                            @Html.TextBoxFor(model => model.Order.Username, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Order.Username)
+                        </div>
+
+                        <div class="form-group mt-3">
+                            @Html.Label("Morada de Envio")
+                            @Html.TextBoxFor(model => model.Order.Address, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Order.Address)
+                        </div>
+
+                        @Html.HiddenFor(model => model.Order.Price)
+
+                        @Html.HiddenFor(model => model.Order.Status)
+
+                        <div class="form-group mt-3">
+                        <button class="btn btn-outline-primary" type="submit">Finalizar Encomenda</button>
+                        </div>
+
+                    </div>
+                }
+            </div>
         </div>
     </div>
 </div>

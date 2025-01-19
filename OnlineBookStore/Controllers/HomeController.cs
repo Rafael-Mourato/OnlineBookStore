@@ -166,17 +166,6 @@ namespace OnlineBookStore.Controllers
         [HttpPost]
         public IActionResult OrderRegister(Order order)
         {
-            if (order.BookId == 0)
-            {
-                ModelState.AddModelError("BookId", "Book ID is required.");
-                var viewModel = new IndexViewModel
-                {
-                    Order = order,
-                    Book = null
-                };
-                return View("OrderRegister", viewModel);
-            }
-
             var book = _dbContext.Book.FirstOrDefault(b => b.Id == order.BookId);
             if (book == null)
             {
@@ -188,6 +177,8 @@ namespace OnlineBookStore.Controllers
                 };
                 return View("OrderRegister", viewModel);
             }
+
+            order.Price = book.Price;
 
             orders.Add(order);
             _dbContext.Order.Add(order);
