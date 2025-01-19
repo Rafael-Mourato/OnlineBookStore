@@ -1,4 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.OpenApi;
+using Microsoft.EntityFrameworkCore;
+using OnlineBookStore;
 
 namespace OnlineBookStore.Models
 {
@@ -26,7 +30,7 @@ namespace OnlineBookStore.Models
         [Required]
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
-        
+
         [Required]
         [MaxLength(100, ErrorMessage = "Deve conter no máximo 100 caracteres"), MinLength(3, ErrorMessage = "Deve conter no mínimo 3 caracteres")]
         public string Publisher { get; set; } = string.Empty;
@@ -36,7 +40,7 @@ namespace OnlineBookStore.Models
         public int Year { get; set; }
 
         public int Pages { get; set; }
-        
+
         [Required]
         [MaxLength(50, ErrorMessage = "Deve conter no máximo 50 caracteres"), MinLength(4, ErrorMessage = "Deve conter no mínimo 4 caracteres")]
         public string Language { get; set; } = string.Empty;
