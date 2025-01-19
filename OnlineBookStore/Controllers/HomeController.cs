@@ -190,22 +190,38 @@ namespace OnlineBookStore.Controllers
         public IActionResult BackOffice()
         {
             books = _dbContext.Book.AsQueryable().ToList();
-            var viewModel = new IndexViewModel()
-            {
-                Books = books
-            };
-            return View(viewModel);
-        }
-
-        public IActionResult BackOfficeOrdersPage()
-        {
             orders = _dbContext.Order.AsQueryable().ToList();
             var viewModel = new IndexViewModel()
             {
+                Books = books,
                 Orders = orders
             };
             return View(viewModel);
         }
+
+        [HttpPost]
+        public IActionResult UpdateOrderStatus(UpdateOrderStatusViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var order = _dbContext.Order.Find(model.Id);
+                if (order != null)
+                {
+                    order.Status = model.Status;
+                    _dbContext.Order.Update(order);
+                    _dbContext.SaveChanges();
+                }
+                else
+                {
+                    return NotFound();
+                }
+
+                return RedirectToAction(nameof(BackOffice));
+            }
+
+            return View("BackOffice", model);
+        }
+
 
         public IActionResult About()
         {

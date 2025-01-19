@@ -81,25 +81,33 @@
                         </tr>
                     </thead>
                     <tbody class="align-middle">
-                        @* @if (Model?.Orders != null && Model.Orders.Any()) *@
-                        @* { *@
-                        @*     @foreach (var order in Model.Orders) *@
-                        @*     { *@
-                        @*         <tr> *@
-                        @*             <td class="align-middle"><img src=@order.book.Image alt="Capa do Livro" style="height: 65px" /></td> *@
-                        @*             <td class="align-middle">@order.book.Title</td> *@
-                        @*             <td class="align-middle">@order.Username</td> *@
-                        @*             <td>@order.Address</td> *@
-                        @*             <td>@order.Status</td> *@
-                        @*         </tr> *@
-                        @*     } *@
-                        @* } *@
-                        @* else *@
-                        @* { *@
-                             <tr>
-                                <td colspan="7" class="text-center"><h5><i class="bi bi-exclamation-triangle-fill"></i> Não existem livros!!!</h5></td>
-                             </tr> 
-                        @* } *@
+                        @if (Model?.Orders != null && Model.Orders.Any())
+                        {
+                            @foreach (var order in Model.Orders)
+                            {
+                                <tr>
+                                    <td class="align-middle"><img src=@order.Book.Image alt="Capa do Livro" style="height: 65px" /></td>
+                                    <td class="align-middle">@order.Book.Title</td>
+                                    <td class="align-middle">@order.Username</td>
+                                    <td>@order.Address</td>
+                                    <td>
+                                        <form asp-action="UpdateOrderStatus" method="post" id="form-@order.Id">
+                                            <input type="hidden" name="Id" value="@order.Id" />
+                                            <select class="form-select" name="Status" onchange="document.getElementById('form-@order.Id').submit()">
+                                                <option value="false" selected="@(order.Status == false)"><i class="bi bi-circle-half" style="color: cornflowerblue"></i> Pendente</option>
+                                                <option value="true" selected="@(order.Status == true)"><i class="bi bi-circle-fill" style="color: green"></i> Satisfeita</option>
+                                            </select>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="7" class="text-center"><h5><i class="bi bi-exclamation-triangle-fill" style="color: yellow"></i> Não existem Encomendas!!!</h5></td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>

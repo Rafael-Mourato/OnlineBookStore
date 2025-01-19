@@ -10,7 +10,7 @@
     // Verifica o tema salvo no localStorage e aplica
     const savedTheme = localStorage.getItem("theme") || "light"; // Padrão: light
     html.setAttribute("data-bs-theme", savedTheme);
-    themeToggle.textContent = savedTheme === "dark" ? "Modo claro" : "Modo Escuro";
+    themeToggle.textContent = savedTheme === "dark" ? "\uF5A1 Modo claro" : "\uF494 Modo Escuro";
 
     // Alterna o tema ao clicar no botão
     themeToggle.addEventListener("click", () => {
@@ -18,7 +18,7 @@
         const newTheme = currentTheme === "light" ? "dark" : "light";
         html.setAttribute("data-bs-theme", newTheme);
         localStorage.setItem("theme", newTheme);
-        themeToggle.textContent = newTheme === "dark" ? "Modo claro" : "Modo Escuro";
+        themeToggle.textContent = newTheme === "dark" ? "\uF5A1 Modo claro" : "\uF494 Modo Escuro";
         console.log(`Tema alterado para: ${newTheme}`);
     });
 
