@@ -6,11 +6,18 @@
         <div class="book-order">
             <div class="book d-flex flex-column">
                 <h3>Livro Escolhido</h3>
-                <div class="book-info d-flex flex-row justify-content-between">
-                    <h4>@Model.Book.Title</h4>
-                    <p>@Model.Book.Author</p>
-                    <p>@Model.Book.Price €</p>
-                </div>
+                @if (Model.Book != null)
+                {
+                    <div class="book-info d-flex flex-row justify-content-between">
+                        <h4>@Model.Book.Title</h4>
+                        <p>@Model.Book.Author</p>
+                        <p>@Model.Book.Price €</p>
+                    </div>
+                }
+                else
+                {
+                    <p>Book information is not available.</p>
+                }
             </div>
         </div>
 
@@ -21,7 +28,7 @@
                 @Html.AntiForgeryToken()
 
                 @Html.HiddenFor(model => model.Order.Id)
-                @Html.HiddenFor(model => model.Order.book)
+                @Html.HiddenFor(model => model.Order.BookId)
 
                 <div class="container">
                     <div class="form-group mt-3">

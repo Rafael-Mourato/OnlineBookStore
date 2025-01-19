@@ -32,16 +32,16 @@
         <tbody class="align-middle">
             if (Model?.Orders != null)
             { 
-                 @foreach (var order in Model.Orders) 
+                @*  @foreach (var order in Model.Orders) 
                  { 
                      <tr> 
-                         <td class="align-middle"><img src=@order.book.Image alt="Capa do Livro" style="height: 65px" /></td> 
+                         <td class="align-middle"><img src=@m.book.Image alt="Capa do Livro" style="height: 65px" /></td> 
                          <td class="align-middle">@order.book.Title</td> 
                          <td class="align-middle">@order.Username</td> 
                          <td>@order.Address</td> 
                          <td>@order.Status</td> 
                      </tr> 
-                 } 
+                 }  *@
             }
             else
             {

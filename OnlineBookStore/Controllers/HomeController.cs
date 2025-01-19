@@ -17,6 +17,7 @@ namespace OnlineBookStore.Controllers
         private readonly ILogger<HomeController> _logger;
         private List<Book> books = new List<Book>();
         private List<Order> orders = new List<Order>();
+        private Book book;
 
         public HomeController(OnlineBookStoreDbContext dbContext, ILogger<HomeController> logger)
         {
@@ -150,16 +151,15 @@ namespace OnlineBookStore.Controllers
 
         public IActionResult OrderRegister(int id = default)
         {
-            var book = _dbContext.Book.FirstOrDefault(b => b.Id == id);
+            book = _dbContext.Book.FirstOrDefault(b => b.Id == id);
             if (book == null)
             {
-                NotFound();
+                return NotFound();
             }
 
             var viewModel = new IndexViewModel()
             {
                 Book = book,
-                Order = new Order()
             };
 
             return View("OrderRegister", viewModel);
@@ -168,11 +168,16 @@ namespace OnlineBookStore.Controllers
         [HttpPost]
         public IActionResult OrderRegister(Order order)
         {
-            var bookExists = _dbContext.Book.Any(b => b.Id == order.bookId);
+            var bookExists = _dbContext.Book.Any(b => b.Id == book.Id);
             if (!bookExists)
             {
                 ModelState.AddModelError("bookId", "Invalid book ID.");
-                return View(order);
+                var viewModel = new IndexViewModel
+                {
+                    Order = order,
+                    Book = _dbContext.Book.FirstOrDefault(b => b.Id == order.BookId)
+                };
+                return View("OrderRegister", viewModel);
             }
 
             orders.Add(order);
