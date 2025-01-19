@@ -17,7 +17,6 @@ namespace OnlineBookStore.Controllers
         private readonly ILogger<HomeController> _logger;
         private List<Book> books = new List<Book>();
         private List<Order> orders = new List<Order>();
-        private Book book;
 
         public HomeController(OnlineBookStoreDbContext dbContext, ILogger<HomeController> logger)
         {
@@ -151,31 +150,41 @@ namespace OnlineBookStore.Controllers
 
         public IActionResult OrderRegister(int id = default)
         {
-            book = _dbContext.Book.FirstOrDefault(b => b.Id == id);
+            var book = _dbContext.Book.FirstOrDefault(b => b.Id == id);
             if (book == null)
             {
                 return NotFound();
             }
-
             var viewModel = new IndexViewModel()
             {
                 Book = book,
+                Order = new Order { BookId = book.Id } // Inicializa o Order com o BookId
             };
-
             return View("OrderRegister", viewModel);
         }
 
         [HttpPost]
         public IActionResult OrderRegister(Order order)
         {
-            var bookExists = _dbContext.Book.Any(b => b.Id == book.Id);
-            if (!bookExists)
+            if (order.BookId == 0)
             {
-                ModelState.AddModelError("bookId", "Invalid book ID.");
+                ModelState.AddModelError("BookId", "Book ID is required.");
                 var viewModel = new IndexViewModel
                 {
                     Order = order,
-                    Book = _dbContext.Book.FirstOrDefault(b => b.Id == order.BookId)
+                    Book = null
+                };
+                return View("OrderRegister", viewModel);
+            }
+
+            var book = _dbContext.Book.FirstOrDefault(b => b.Id == order.BookId);
+            if (book == null)
+            {
+                ModelState.AddModelError("BookId", "Invalid book ID.");
+                var viewModel = new IndexViewModel
+                {
+                    Order = order,
+                    Book = null
                 };
                 return View("OrderRegister", viewModel);
             }
@@ -183,9 +192,7 @@ namespace OnlineBookStore.Controllers
             orders.Add(order);
             _dbContext.Order.Add(order);
             _dbContext.SaveChanges();
-
             return RedirectToAction(nameof(Index));
-
         }
 
         [Authorize]

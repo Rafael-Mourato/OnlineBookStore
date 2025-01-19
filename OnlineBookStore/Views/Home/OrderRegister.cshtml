@@ -48,8 +48,13 @@
                     @Html.HiddenFor(model => model.Order.Status)
 
                     <div class="form-group mt-3">
-                        <input type="submit" value="Guardar" class="btn btn-outline-primary" />
+                        <form asp-action="OrderRegister" method="post">
+                            <input type="hidden" asp-for="Order.BookId" value="@Model.Book.Id" />
+                            <!-- Outros campos do formulário -->
+                            <button class ="btn btn-outline-primary" type="submit">Registrar Pedido</button>
+                        </form>
                     </div>
+
                 </div>
             }
         </div>
