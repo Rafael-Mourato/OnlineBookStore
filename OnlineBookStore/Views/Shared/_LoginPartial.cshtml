@@ -7,7 +7,7 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-        <div class="dropdown text-center">
+        <div class="dropdown">
             <button class="btn btn-outline-primary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-person-circle"></i>
             </button>
@@ -17,11 +17,11 @@
                     <a id="dropdown-item manage" class="nav-link text-light pt-1">@UserManager.GetUserName(User)</a>
                 </li>
                 <li>
-                    <a id="dropdown-item manage" class="nav-link text-light btn btn-link pt-1" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="bi bi-gear-fill"></i> Definições de perfil</a>
+                        <a id="dropdown-item manage" class="nav-link text-light btn btn-link pt-1 text-start" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="bi bi-gear-fill"></i> Definições de perfil</a>
                 </li>
                 <li>
-                    <form id="logoutForm" class="dropdown-item form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                        <button id="logout" type="submit" class="nav-link btn btn-link text-light border-0"><i class="bi bi-box-arrow-left"></i> Logout</button>
+                    <form id="logoutForm" class="form-inline mx-auto" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                            <button id="logout" type="submit" class="nav-link btn btn-link text-light border-0 text-start" style="width:100%"><i class="bi bi-box-arrow-left"></i> Logout</button>
                     </form>
                 </li>
             </ul>

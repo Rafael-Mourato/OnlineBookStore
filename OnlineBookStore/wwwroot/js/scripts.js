@@ -10,22 +10,38 @@
     // Verifica o tema salvo no localStorage e aplica
     const savedTheme = localStorage.getItem("theme") || "light"; // Padrão: light
     html.setAttribute("data-bs-theme", savedTheme);
-    themeToggle.textContent = savedTheme === "dark" ? "\uF5A1 Modo claro" : "\uF494 Modo Escuro";
+
+    // Cria os elementos de ícone
+    const iconMoon = document.createElement("i");
+    iconMoon.classList.add("bi", "bi-moon-fill");
+
+    const iconSun = document.createElement("i");
+    iconSun.classList.add("bi", "bi-brightness-high-fill");
+
+    // Adiciona o ícone inicial ao botão
+    themeToggle.innerHTML = "";
+    themeToggle.appendChild(savedTheme === "dark" ? iconSun : iconMoon);
+    themeToggle.appendChild(document.createTextNode(savedTheme === "dark" ? " Modo claro" : " Modo Escuro"));
 
     // Alterna o tema ao clicar no botão
     themeToggle.addEventListener("click", () => {
-        const currentTheme = html.getAttribute("data-bs-theme");
-        const newTheme = currentTheme === "light" ? "dark" : "light";
-        html.setAttribute("data-bs-theme", newTheme);
-        localStorage.setItem("theme", newTheme);
-        themeToggle.textContent = newTheme === "dark" ? "\uF5A1 Modo claro" : "\uF494 Modo Escuro";
-        console.log(`Tema alterado para: ${newTheme}`);
+    const currentTheme = html.getAttribute("data-bs-theme");
+    const newTheme = currentTheme === "light" ? "dark" : "light";
+    html.setAttribute("data-bs-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
+
+    // Alterna o ícone
+    themeToggle.innerHTML = "";
+    themeToggle.appendChild(newTheme === "dark" ? iconSun : iconMoon);
+    themeToggle.appendChild(document.createTextNode(newTheme === "dark" ? " Modo claro" : " Modo Escuro"));
+
+    console.log(`Tema alterado para: ${newTheme}`);
     });
 
     console.log(`Tema inicial: ${savedTheme}`);
 });
 
-/*************************************************************************************/
+/***********************************************************************************************************/
 
 // Seleciona o botão pelo ID
 const botaoTopo = document.getElementById('voltarAoTopo');
@@ -47,7 +63,7 @@ botaoTopo.addEventListener('click', () => {
     });
 });
 
-/*************************************************************************************/
+/***********************************************************************************************************/
 
 const triggerTabList = document.querySelectorAll('#myTab button')
 triggerTabList.forEach(triggerEl => {
