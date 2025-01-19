@@ -13,7 +13,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BookAlegre</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -27,7 +27,7 @@
 
                             @if (SignInManager.IsSignedIn(User))
                             {
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="BackOffice">Gestão</a>
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="BackOffice">Gestão</a>
                             }
                         </li>
                     </ul>
@@ -49,7 +49,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted top-100">
         <div class="container">
             &copy; 2025 - BookAlegre - <a asp-area="" asp-controller="Home" asp-action="About">Sobre nós!</a>
         </div>
