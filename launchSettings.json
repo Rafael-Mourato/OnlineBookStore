@@ -3,8 +3,12 @@
     "Docker Compose": {
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "onlinebookstore",
+      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}",
       "serviceActions": {
-        "onlinebookstore": "StartDebugging"
+        "onlinebookstore": "StartDebugging",
+        "onlinebookstoreDB": "StartWithoutDebugging"
       }
     }
   }

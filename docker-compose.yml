@@ -1,36 +1,33 @@
 services:
   onlinebookstore:
     container_name: onlinebookstoreApp
-    image: rafamour/onlinebookstore:1.0
-    ports:
-      - "8001:80"
+    image: ${DOCKER_REGISTRY-}onlinebookstore:1.0
     build:
       context: .
       dockerfile: OnlineBookStore/Dockerfile
-    # environment:
-    #     - ConnectionStrings__DefaultConnection=Server=onlinebookstore_db;Database=OnlineBookStore;User Id=sa;Password=OnlineBookStoreDB2025;Trust Server Certificate=True;
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=onlinebookstore_db;Database=OnlineBookStore;User Id=sa;Password=BookStore2025;Trust Server Certificate=True;
     depends_on:
       - onlinebookstoreDB
-    # networks:
-    #   - onlinebookstore
+    networks:
+      - onlinebookstore
 
   onlinebookstoreDB:
-     container_name: onlinebookstoreDB   
-     image: mcr.microsoft.com/mssql/server:latest
-     ports:
-        - 8002:1433
-     environment:
-        - ACCEPT_EULA=Y
-        - SA_PASSWORD=OnlineBookStoreDB2025
-     # networks:
-     #   - onlinebookstore
-#      volumes:
-#        -  bookstoreVolume:/var/opt/mssql
+    container_name: onlinebookstore_db   
+    image: mcr.microsoft.com/mssql/server:latest
+    ports:
+      - 8002:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=BookStore2025!
+    networks:
+      - onlinebookstore
+    volumes:
+      - bookstoreVolume:/var/opt/mssql
 
-# volumes:
-#     bookstoreVolume:
+volumes:
+    bookstoreVolume:
 
-# networks:
-#     onlinebookstore:
-#         driver: bridge    
-  
+networks:
+    onlinebookstore:
+        driver: bridge
