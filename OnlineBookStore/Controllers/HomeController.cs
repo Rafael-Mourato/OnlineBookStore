@@ -24,12 +24,22 @@ namespace OnlineBookStore.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string search = "")
         {
-            books = _dbContext.Book.AsQueryable().Where(b => b.IsAvailable == true).ToList();
+            var query = _dbContext.Book.AsQueryable();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                books = query.Where(b => b.Title.ToLower().Contains(search) || b.Author.ToLower().Contains(search) && b.IsAvailable == true).ToList();
+            }
+            else
+            {
+                books = query.Where(b => b.IsAvailable == true).ToList();
+            }
 
             var viewModel = new IndexViewModel()
             {
+                Search = search,
                 Books = books
             };
             return View(viewModel);

@@ -48,11 +48,24 @@
             </div>
         </div>
 
-        <div class="price-book align-self-end p-3 d-flex flex-row gap-3 align-items-center">
-            <p class="mb-0">@Html.DisplayFor(model => model.Price)</p>
+        <div class="info-book p-3 d-flex flex-row justify-content-between gap-5 align-items-center">
+            <div>
+                @if (Model.IsAvailable == true)
+                {
+                    <p class="mb-0"><i class="bi bi-circle-fill" style="color: green;"></i> Disponível</p>
+                }
+                else
+                {
+                    <p class="mb-0"><i class="bi bi-circle-fill" style="color: red"></i> Indisponível</p>
+                }
+            </div>
+            
+            <div class="price-book align-self-end d-flex flex-row gap-3 align-items-center">
+                <p class="mb-0">@Html.DisplayFor(model => model.Price)</p>
 
-            <div class="buy-button">
-                <a class="btn btn-primary" asp-action="OrderRegister" asp-route-id=@Model.Id><i class="bi bi-cart4"></i> Comprar</a>
+                <div class="buy-button">
+                    <a class="btn btn-primary" asp-action="OrderRegister" asp-route-id=@Model.Id><i class="bi bi-cart4"></i> Comprar</a>
+                </div>
             </div>
         </div>
     </div>

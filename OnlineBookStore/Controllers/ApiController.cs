@@ -22,7 +22,7 @@ namespace OnlineBookStore.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Book>> Get()
         {
-            var books = _dbContext.Book.ToList();
+            var books = _dbContext.Book.Where(b => b.IsAvailable == true).ToList();
             return Ok(books);
         }
 

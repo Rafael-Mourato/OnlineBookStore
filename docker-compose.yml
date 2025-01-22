@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: OnlineBookStore/Dockerfile
     environment:
-      - ConnectionStrings__DefaultConnection=Server=onlinebookstore_db;Database=OnlineBookStore;User Id=sa;Password=BookStore2025;Trust Server Certificate=True;
+      - ConnectionStrings__DefaultConnection=Server=onlinebookstore_db;Database=OnlineBookStore;User Id=sa;Password=BookStore2025!;Trust Server Certificate=True;
     depends_on:
       - onlinebookstoreDB
     networks:
